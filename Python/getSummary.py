@@ -2,30 +2,21 @@
 """
 Created on Thu Apr 21 09:53:28 2016
 
-@author: jnvicker
+@author: john vickery
 
 Purpose:
     Pass ISBNs to Syndetics web service to get book summary
-    Sample URL: http://www.syndetics.com/index.aspx?isbn=1619026279/SUMMARY.XML&client=ncstateu
+    Subscription to Syndetics is required
+    Sample URL: http://www.syndetics.com/index.aspx?isbn=1619026279/SUMMARY.XML&client=<CLIENTID HERE>
     XML response
     <Notes>
         <Fld520 I1="BLANK" I2="BLANK">
             <a>
-                SUMMARY
+                SUMMARY	
 
-NOTES:
-    use next() function in csv.reader to skip the header
-
-PROBLEMS:
-    4-26-16
-    Figure out what to do if no response from syndetics
-    
-    solution:
-    parse with beautifulsoup and check for <title> tag
-    see: http://www.syndetics.com/index.aspx?isbn=9781139115513/SUMMARY.XML&client=ncstateu
-	
-	maybe check header
-
+   The form of the input CSV file is assumed to be:
+   CATKEY (or other ILS identifier), ISBN1, ISBN2, ISBN3,.....,ISBN<n>
+   
 """
 
 import csv
@@ -37,11 +28,11 @@ from bs4 import BeautifulSoup
 # input file and URL for Syndetics
 fname = 'isbn.csv'
 serviceurl = 'http://www.syndetics.com/index.aspx?isbn='
-suffix = '/SUMMARY.XML&client=ncstateu'
+suffix = '/SUMMARY.XML&client=<CLIENTID HERE>'
 
 # range of input file to process
-start = 50001
-stop  = 58734
+start = 0
+stop  = 100
 
 lst = list()
 with open(fname, newline='') as f:
